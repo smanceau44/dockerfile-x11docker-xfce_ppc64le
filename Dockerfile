@@ -26,7 +26,11 @@
 
 FROM ppc64le/debian:bullseye
 
-RUN apt-get update && apt-mark hold iptables && \
+RUN echo "deb http://debian.mirrors.ovh.net/debian bullseye main" > /etc/apt/sources.list && \
+    echo "deb http://debian.mirrors.ovh.net/debian-security bullseye-security main" >> /etc/apt/sources.list && \
+    echo "deb http://debian.mirrors.ovh.net/debian bullseye-updates main" >> /etc/apt/sources.list && \
+    echo "deb-src http://debian.mirrors.ovh.net/debian bullseye main" >> /etc/apt/sources.list && \
+    apt-get update && apt-mark hold iptables && \
     env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
       dbus-x11 \
       psmisc \
